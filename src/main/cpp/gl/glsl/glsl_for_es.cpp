@@ -359,7 +359,8 @@ std::string GLSLtoGLSLES(const char* glsl_code, GLenum glsl_type, uint essl_vers
         Cache::get_instance().put(sha256_string.c_str(), converted.c_str());
     }
 
-    return (return_code >= 0) ? converted : glsl_code;
+    return (return_code >= 0) ? std::move(converted) : std::string(glsl_code);
+	    
 }
 
 std::string replace_line_starting_with(const std::string& glslCode, const std::string& starting, const std::string& substitution = "") {
